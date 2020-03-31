@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{%block title%}Cadastro de Turma{% endblock %}
+{% block content %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Cadastro de Turma</h1>
+                        <form action="{{url_for('cadastro.cadastrar')}}" enctype="multipart/form-data" method="POST">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputState">Disciplina</label>
+                                <select id="inputState" class="form-control"name="disciplica">
+                                  {%for i in subject %}
+                                  <option selected >{{i['name']}}</option>
+                                  {%endfor%}
+                                </select>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputState">Turno</label>
+                                <select id="inputState" class="form-control" name="turno">
+                                  <option selected>Matutino</option>
+                                  <option >Vespertino</option>
+                                  <option >Noturno</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress">Curso</label>
+                              <input type="text" name="curso" class="form-control" id="inputAddress" placeholder="Análise de sistemas ">
+                            </div>
+                            <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleFormControlFile1">Escolher Lista de alunos</label>
+                                <input type="file" name="alunos" class="form-control-file" id="exampleFormControlFile1">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="exampleFormControlFile1">Escolher arquivo de treinamento</label>
+                                <input type="file" name="descritor" class="form-control-file" id="exampleFormControlFile1">
+                              </div>
+
+                            </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary ml-4">Salvar</button>
+                          </form>
+
+                    </div>
+                </main>
+
+ {% endblock %}

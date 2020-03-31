@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{%block title%}Dashboard{% endblock %}
+{% block content %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-5 ml-2">Dashboard</h1>
+                        <form action="" method="" enctype="multipart/form-data" id="form_id" ajax="true">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                            <label for="inputEstado">Escolha a turma que deseja realizar a chamada</label>
+                            <select id= "turma" name ="turma"  class="form-control" >
+                            {%if turmas%}
+                                {%for v in turmas %}
+
+                              <option  value="{{v['_id'] }}"> {{v['disciplina']}} - {{v['turno']}} - {{v['curso']}}</option>
+
+                              {%endfor%}
+                            {%endif%}
+
+                            </select>
+                            </div>
+                           <br>
+
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <button onclick="mostrarAlunos()" id="btn_gg" type="submit" class="btn btn-primary mb-4">Pesquisar alunos</button>
+                              </div>
+
+                        <div class="form-group col-md-2">
+                            <button onclick="reconhecer()" type="submit" class="btn btn-primary mb-4">Fazer Chamada</button>
+                          </div>
+                    </div>
+                       <br>
+                    </form>
+                    <div id="gg">
+
+                    </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>RA</th>
+                                                <th>Nome</th>
+                                                <th>Presença</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id = corpinho>
+                                            {%for s in student %}
+                                            <tr>
+                                                <td>{{s.ra}}</td>
+                                                <td>{{s.name}}</td>
+                                                {%if s.presente%}
+                                                <td><input type="checkbox" class="check-input" id="exampleCheck1" checked></td>
+                                                {%else%}
+                                                <td><input type="checkbox" class="check-input" id="exampleCheck1"></td>
+                                                {%endif%}
+                                            </tr>
+                                            {%endfor%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <script>
+var lista = []
+function mostrarAlunos(){
+var select = document.getElementById('turma');
+var option = select.children[select.selectedIndex];
+var texto = option.textContent;
+
+document.getElementById('form_id').action = "{{url_for('home.index')}}";
+lista.append(texto)
+
+}
+
+function reconhecer(){
+    document.getElementById('form_id').action = "{{url_for('home.alunosPresentes')}}";
+    lista.append(texto)
+    }
+
+var elemento = document.createElement('h4');
+elemento.append("{{name_curso['disciplina']}} - {{name_curso['turno']}} - {{name_curso['curso']}}")
+var div = document.getElementById('gg')
+div.append(elemento)
+
+                </script>
+ {% endblock %}
